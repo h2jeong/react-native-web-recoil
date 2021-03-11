@@ -1,9 +1,33 @@
 import React from "react";
 import { StyleSheet, Text } from "react-native-web";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { itemIdsState, selectedIdsState } from "../../recoil/atoms";
+import { createNewShape } from "../../recoil/defaults";
 import Button from "../common/Button";
 
 export default function AddRectsButton() {
-  const handleClick = () => {};
+  const [itemIds, setItemIds] = useRecoilState(itemIdsState);
+  const setSelectedIds = useSetRecoilState(selectedIdsState);
+
+  const handleClick = () => {
+    let space = 16;
+    let width = 100;
+    let height = 100;
+    let ids = [];
+    let start = itemIds.length;
+    for (let i = 0; i < 100; i++) {
+      let count = start + i;
+      let row = Math.floor(count / 5);
+      let col = count % 5;
+      let x = space * (col + 1) + width * col;
+      let y = space * (row + 1) + height * row;
+      let id = createNewShape({ x, y, width, height });
+      ids.push(id);
+    }
+
+    setItemIds([...itemIds, ...ids]);
+    setSelectedIds([]);
+  };
 
   return (
     <Button style={styles.root} onClick={handleClick}>

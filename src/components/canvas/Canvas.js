@@ -1,11 +1,16 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { StyleSheet, View } from 'react-native-web'
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { canvasLayoutState, itemIdsState } from '../../recoil/atoms';
 import CanvasBackground from './CanvasBackground';
 import CanvasItem from './CanvasItem';
 import Selection from './Selection';
 
 export default function Canvas() {
-    const setLayoutState = () => {};
+    const ref = useRef();
+    const itemIds = useRecoilValue(itemIdsState)
+    const setLayoutState = useSetRecoilState(canvasLayoutState);
+
     const onLayout = ({
         nativeEvent: {
             layout: { x, y, width, height }
@@ -13,10 +18,10 @@ export default function Canvas() {
     }) => setLayoutState({ x, y, width, height })
 
     return (
-        <View style={styles.root} onLayout={onLayout}>
+        <View style={styles.root} onLayout={onLayout} ref={ref}>
             <View style={styles.container}>
                 <CanvasBackground />
-                <CanvasItem />
+                {itemIds.map(id => <CanvasItem key={`item-${id}`} id={id} />)}
                 <Selection />
             </View>
         </View>

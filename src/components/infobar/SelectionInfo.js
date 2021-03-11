@@ -1,9 +1,24 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { StyleSheet, Text, View, TextInput } from "react-native-web";
+import { useRecoilState } from "recoil";
+import { selectedItemsSelector } from "../../recoil/selectors";
 import NumberInput from "../common/NumberInput";
 
 export default function SelectionInfo() {
-    const onChange = () => {}
+  const [selectedItems, setSelectedItems] = useRecoilState(
+    selectedItemsSelector
+  );
+  const updateSelectedItem = useCallback(
+    (name, value) => {
+      setSelectedItems([{ ...setSelectedItems[0], [name]: value }]);
+    },
+    [selectedItems, setSelectedItems]
+  );
+
+  if (selectedItems.length !== 1) return null;
+
+  const selectedItem = selectedItems[0];
+
   return (
     <View style={styles.root}>
       <View style={styles.row}>
@@ -12,18 +27,32 @@ export default function SelectionInfo() {
       <View style={styles.row}>
         <View style={styles.column}>
           <Text style={styles.bold}>X</Text>
-          <NumberInput value style={styles.input} onChangeNumber={onChange} />
+          <NumberInput
+            value={selectedItem.x}
+            style={styles.input}
+            onChangeNumber={(number) => updateSelectedItem("x", number)}
+          />
         </View>
         <View style={styles.columnSpace} />
         <View style={styles.column}>
           <Text style={styles.bold}>Y</Text>
-          <NumberInput value style={styles.input} onChangeNumber={onChange} />
+          <NumberInput
+            value={selectedItem.y}
+            style={styles.input}
+            onChangeNumber={(number) => updateSelectedItem("y", number)}
+          />
         </View>
       </View>
-      <View style={styles.labelRow}>
+      {["image"].indexOf(selectedItem.type) === -1 && (
+        <View style={styles.labelRow}>
           <Text style={styles.bold}>Label:</Text>
-          <TextInput value style={styles.input} onChangeText={onChange} />
-      </View>
+          <TextInput
+            value={selectedItem.label}
+            style={styles.input}
+            onChangeText={(text) => updateSelectedItem("label", text)}
+          />
+        </View>
+      )}
     </View>
   );
 }

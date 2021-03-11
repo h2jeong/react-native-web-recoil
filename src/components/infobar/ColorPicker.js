@@ -1,18 +1,51 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { SketchPicker } from "react-color";
 import { StyleSheet, View } from "react-native-web";
+import { useRecoilState } from "recoil";
+import { backgroundColorState } from "../../recoil/atoms";
 
 export default function ColorPicker() {
-  const handleClick = () => {};
-  // const handleChangeComplete = () => {};
+  const [shown, setShown] = useState(false);
+  const [backgroundColor, setBackgroundColor] = useRecoilState(
+    backgroundColorState
+  );
+
+  const handleClick = useCallback(() => {
+    console.log('click')
+    setShown(true);
+  }, []);
+
+  const handleChangeComplete = useCallback(
+    (color) => {
+      setBackgroundColor(color.hex);
+    },
+    [setBackgroundColor]
+  );
+
+  useEffect(() => {
+    function hidePopup(e) {
+      if (e.target.closest("#color-picker")) return;
+      setShown(false);
+    }
+
+    document.body.addEventListener("click", hidePopup);
+
+    return () => {
+      document.body.removeEventListener("click", hidePopup);
+    };
+  }, []);
 
   return (
     <View style={styles.root} onClick={handleClick}>
-      <View style={styles.inner}>
-        <View style={styles.popup}>
-          <SketchPicker />
+      <View style={[styles.inner, { backgroundColor: backgroundColor }]} />
+      {shown && (
+        <View style={styles.popup} nativeID="color-picker">
+          <SketchPicker
+            color={backgroundColor}
+            onChangeComplete={handleChangeComplete}
+          />
         </View>
-      </View>
+      )}
     </View>
   );
 }

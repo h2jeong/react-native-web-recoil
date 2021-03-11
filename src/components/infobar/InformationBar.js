@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native-web";
-// import ColorPicker from "./ColorPicker";
+import ColorPicker from "./ColorPicker";
 import SelectionInfo from "./SelectionInfo";
 
 export default function InformationBar() {
@@ -10,8 +10,8 @@ export default function InformationBar() {
         <Text>Document</Text>
       </View>
       <View style={[styles.row, styles.colorRow]}>
-        <Text style={styles.title}>InformationBar</Text>
-        {/* <ColorPicker /> */}
+        <Text style={styles.title}>Background color:</Text>
+        <ColorPicker />
       </View>
       <SelectionInfo />
     </View>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View } from 'react-native-web'
 import AddRectsButton from './AddRectsButton'
 import ItemInfoList from './ItemInfoList'
 import ToolBar from '../toolbar/ToolBar'

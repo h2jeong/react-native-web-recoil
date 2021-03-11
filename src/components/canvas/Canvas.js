@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View } from 'react-native-web'
 import CanvasBackground from './CanvasBackground';
 import CanvasItem from './CanvasItem';
 import Selection from './Selection';

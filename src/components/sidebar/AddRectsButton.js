@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet, Text } from "react-native-web";
 import Button from "../common/Button";
 
 export default function AddRectsButton() {

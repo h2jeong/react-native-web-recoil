@@ -1,6 +1,6 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import ColorPicker from "./ColorPicker";
+import { StyleSheet, Text, View } from "react-native-web";
+// import ColorPicker from "./ColorPicker";
 import SelectionInfo from "./SelectionInfo";
 
 export default function InformationBar() {

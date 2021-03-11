@@ -1,6 +1,6 @@
 import React from "react";
 import { SketchPicker } from "react-color";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native-web";
 
 export default function ColorPicker() {
   const handleClick = () => {};

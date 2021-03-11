@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native-web'
 import NewImageButton from './NewImageButton'
 import NewRectangleButton from './NewRectangleButton'
 import NewStatisticsButton from './NewStatisticsButton'

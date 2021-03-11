@@ -1,7 +1,6 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, TextInput } from "react-native-web";
 import NumberInput from "../common/NumberInput";
-import TextInput from "../common/TextInput";
 
 export default function SelectionInfo() {
     const onChange = () => {}
@@ -12,13 +11,18 @@ export default function SelectionInfo() {
       </View>
       <View style={styles.row}>
         <View style={styles.column}>
-          <Text>X</Text>
-          <NumberInput value style={styles.input} onChange={onChange} />
+          <Text style={styles.bold}>X</Text>
+          <NumberInput value style={styles.input} onChangeNumber={onChange} />
+        </View>
+        <View style={styles.columnSpace} />
+        <View style={styles.column}>
+          <Text style={styles.bold}>Y</Text>
+          <NumberInput value style={styles.input} onChangeNumber={onChange} />
         </View>
       </View>
       <View style={styles.labelRow}>
           <Text style={styles.bold}>Label:</Text>
-          <TextInput value style={styles.input} onChange={onChange} />
+          <TextInput value style={styles.input} onChangeText={onChange} />
       </View>
     </View>
   );
